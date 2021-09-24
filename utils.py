@@ -11,6 +11,7 @@ from textwrap import fill
 
 from fake_headers import Headers
 
+from config import Config
 from const import (
     HEADER_TEMPLATE,
     FOOTER_TEMPLATE,
@@ -269,11 +270,16 @@ def get_instagram_pic_stream(username: str) -> BytesIO:
         BytesIO: The photo as BytesIO.
     """
     req_url = f'https://www.instagram.com/{username}/?__a=1'
-    head = Headers().generate()
-    r = requests.get(req_url, headers=head)
+    head = {
+        'Accept': '*/*',
+        'Connection': 'keep-alive',
+        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1'
+    }
+    r = requests.get(req_url, headers=head, cookies={'sessionid': Config.session_id})
     try:
         req_json = r.json()
-    except (Exception, ):
+    except (Exception, ) as err:
+        print(err)
         return None
     if req_json == {}:
         return None

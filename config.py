@@ -8,6 +8,7 @@ load_dotenv(dotenv_path=Path('config.env'), override=True)
 class Config:
 
     debug = bool(os.getenv('debug', False))
+    session_id = os.getenv('session_id')
 
     if debug:
         host = 'localhost'
