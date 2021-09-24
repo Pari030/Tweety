@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="it" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>Tweet Image Generator | By PARI</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='styles/style.css') }}">
+    </head>
+    <body>
+        <div class="container center-text">
+            <h1 class="spacer">Tweet Image Generator</h1>
+            <hr>
+
+            <div class="normal-text">
+                <form action="generate" method="get">
+                    <div class="form-group">
+                        <label for="name">Name</label> <br>
+                        <input type="text" name="name" class="form-control" placeholder="Nome" value="PARI" id="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username">Username</label> <br>
+                        <input type="text" name="username" class="form-control" placeholder="Username" value="CronacheDiPari" id="username">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pic">Picture (optional)</label> <br>
+                        <input type="text" name="pic" class="form-control" placeholder="Instagram username" id="pic">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="text">Tweet</label> <br>
+                        <textarea class="textarea-resp form-control" required="required" name="text" id="text" placeholder="roses are red violets are blue unexpected ' ' on line 32 . . . " rows="10"></textarea>
+                    </div>
+
+
+                    <div class="center-text">
+                        <button type="submit" class="btn btn-primary">Swooosh</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
