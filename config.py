@@ -1,14 +1,13 @@
-import os
-from pathlib import Path
-from dotenv import load_dotenv
-
-load_dotenv(dotenv_path=Path('config.env'), override=True)
+import configparser
 
 
 class Config:
+    _config = configparser.ConfigParser()
+    _config.read('config.ini')
+    _settings = _config['settings']
 
-    debug = bool(os.getenv('debug', False))
-    session_id = os.getenv('session_id')
+    debug = bool(_settings['debug'])
+    session_id = _settings['ig_session_id']
 
     if debug:
         host = 'localhost'

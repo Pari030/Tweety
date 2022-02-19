@@ -1,15 +1,11 @@
-import logging
 import pytz
+import logging
 import requests
-
 from io import BytesIO
 import datetime as dtm
-
+from textwrap import fill
 from typing import Union, cast
 from PIL import Image, ImageDraw, ImageFont, ImageFilter, features
-from textwrap import fill
-
-from fake_headers import Headers
 
 from config import Config
 from const import (
@@ -26,7 +22,7 @@ from const import (
 )
 
 
-logger = logging.getLogger(__name__)
+logs = logging.getLogger(__name__)
 
 TEXT_DIRECTION_SUPPORT = features.check('raqm')
 
@@ -137,7 +133,7 @@ def build_header(name: str, username: str, user_picture: Image.Image, verified: 
     background.alpha_composite(user_picture, (up_left, up_top))
     draw = ImageDraw.Draw(background)
 
-    # Add user name
+    # Add username
     un_left = 118*2
     un_top = 30*2
     user_name = shorten_text(cast(str, name), 314*2, USER_NAME_FONT)
@@ -187,17 +183,6 @@ def build_body(text: str) -> Image.Image:
     top = -15
 
     lines = text.split("\n")
-
-    """
-    def more_upper(txt: str) -> bool:
-        t = 0
-        for i in txt:
-            if i.isupper():
-                t += 1
-        print(t, len(txt)/2, txt)
-        return t > (len(txt)/2)
-    """
-
     text = "\n".join([fill(line, max_chars_per_line, break_on_hyphens=True) for line in lines])
     text = "\n".join(text.split('\n')[:9])
     background = multiline_text((left, top), text, background)
@@ -288,3 +273,19 @@ def get_instagram_pic_stream(username: str) -> BytesIO:
         return None
 
     return BytesIO(requests.get(pic_url, stream=True, headers=head).content)
+
+
+def get_url_pic_stream(url: str) -> BytesIO:
+    """
+    Get picture stream by link
+
+    Args:
+        url: Link of the image
+
+    Returns:
+        BytesIO: The photo as BytesIO.
+    """
+    try:
+        return BytesIO(requests.get(url, stream=True).content)
+    except (Exception, ):
+        return None

@@ -1,5 +1,5 @@
-import base64
 import os
+import base64
 import utils
 
 from flask import Flask, render_template, request
@@ -21,16 +21,19 @@ def robots():
 
 @app.route('/generate')
 def generate():
-    name = request.args.get('name')
-    username = request.args.get('username')
-    text = request.args.get('text')
-    pic = request.args.get('pic')
+    name: str = request.args.get('name')
+    username: str = request.args.get('username')
+    text: str = request.args.get('text')
+    pic: str = request.args.get('pic')
 
     if None in (name, username, text):
-        return render_template('error.html', error_desc="Ci sono dei parametri mancanti, torna indietro."), 400
+        return render_template('error.html', error_desc="There are missing parameters, go back."), 400
 
     if pic is not None:
-        pic = utils.get_instagram_pic_stream(pic)
+        if pic.startswith('https://') or pic.startswith('https://'):
+            pic = utils.get_url_pic_stream(pic)
+        else:
+            pic = utils.get_instagram_pic_stream(pic)
 
     if pic is None:
         pic = './images/1080x1080.png'
