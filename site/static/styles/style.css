@@ -1,0 +1,28 @@
+.center-text {
+    text-align: center;
+}
+
+.normal-text {
+    text-align: left;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.spacer {
+    padding: 10px;
+}
+
+.textarea-resp {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.responsive-img {
+    width: 100%;
+    height: auto;
+    max-width: 720px;
+}
