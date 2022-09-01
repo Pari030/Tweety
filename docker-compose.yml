@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+
+  site:
+    build: ./site
+    container_name: tweety-site
+    ports:
+      - "80:80"
+    volumes:
+      - ./site:/app
+    env_file:
+      - .env
